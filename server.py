@@ -18,9 +18,10 @@ def classifyCharacter():
 
     reshapedData = np.array(body['data'])
     reshapedData = reshapedData.reshape(1,28,28,1)
+    predict = stored_model.predict(reshapedData)
+    classes = np.argmax(predict,axis=1)
 
-    return json.dumps( { 'prediction' : int(stored_model.predict(reshapedData) > 0.5).astype("int32") } ) 
-
+    return json.dumps( { 'prediction' : int(classes) } ) 
 
 def start():
     global stored_model
